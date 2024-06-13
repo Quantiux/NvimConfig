@@ -1,0 +1,4 @@
+# .stylua.toml
+
+# Set the maximum allowed line length to 80 characters
+column_width = 100
