@@ -29,7 +29,7 @@ local swenv = {
 -- 	py_env("swenv"),
 -- 	icons_enabled = false,
 -- 	icon = nil,
--- 	color = { fg = "#61afef" },
+-- 	-- color = { fg = "#61afef" },
 -- }
 
 -- LSP clients attached to buffer
