@@ -16,7 +16,7 @@ return {
 			python = { flake8, isort, black },
 			markdown = { markdownlint, mdformat },
 		},
-		-- files to pass additional arguments (in ~/.config/nvim/lua/)
+		-- files to pass additional arguments (located in ~/.config/nvim/lua/)
 		-- *** place .markdownlint.yaml and .mdformat.toml in $HOME for global scope ***
 		rootMarkers = {
 			".luacheckrc",
