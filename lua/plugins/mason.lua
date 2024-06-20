@@ -18,10 +18,11 @@ local config = function()
 	})
 
 	mason_lspconfig.setup({ -- set up mason-lspconfig
-		ensure_installed = {  -- auto-install these language servers
+		ensure_installed = { -- auto-install these language servers
 			"efm", -- this is for linting / formatting
 			"lua_ls",
 			"pyright",
+			"marksman",
 			-- "r_language_server", -- use Nvim-R instead
 		},
 		automatic_installation = true,
