@@ -61,14 +61,17 @@ local config = function()
 	end
 
 	-- loop through language servers to set up config
-	local servers = { "efm", "lua_ls", "pyright" }
+	local servers = { "efm", "lua_ls", "pyright", "marksman" }
 	for _, server in pairs(servers) do
 		local opts = {
 			on_attach = on_attach,
 			capabilities = capabilities,
 		}
-		local settings = require("plugins.lsp." .. server) -- get settings from lsp/ folder
-		opts = vim.tbl_deep_extend("force", settings, opts)
+		-- get server settings from plugins/lsp/ folder if available (none for marksman)
+		local has_settings, settings = pcall(require, "plugins.lsp." .. server)
+		if has_settings then
+			opts = vim.tbl_deep_extend("force", settings, opts)
+		end
 		lspconfig[server].setup(opts) -- pass configs to lspconfig
 	end
 
