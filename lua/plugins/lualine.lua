@@ -1,20 +1,20 @@
 local icons = require("util.icons") -- attach util/icons.lua
 local lsp_clients = require("util.lspclients") -- attach util/lspclients.lua
-local get_venv = require("util.pyenv") -- attach util/pyenv.lua
 
 -- get python environment
-local venv = {
-	get_venv,
-	color = { fg = "#ffc777" },
-	-- color = { fg = "#e3e3e3" },
-}
+local get_env = function() -- function to customize swenv output
+	local venv = require("swenv.api").get_current_venv() -- from swenv.nvim plugin
+	if venv and venv.name then
+		return "[󰌠 " .. venv.name .. "]"
+	else
+		return ""
+	end
+end
 
--- local venv = {
--- 	"swenv",
--- 	icons_enabled = true,
--- 	icon = "󰌠",
--- 	-- color = { fg = "#61afef" },
--- }
+local venv = {
+	get_env,
+	color = { fg = "#ffc777" },
+}
 
 -- get LSP clients attached to current buffer
 local lsp = {
