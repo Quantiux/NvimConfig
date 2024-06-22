@@ -25,6 +25,7 @@ local config = function()
 		},
 		filters = {
 			enable = true,
+			git_ignored = false,
 			dotfiles = false,
 			exclude = {},
 		},
