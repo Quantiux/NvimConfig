@@ -11,7 +11,7 @@ local get_env = function() -- function to customize swenv output
 	end
 end
 
-local venv = {
+local swenv = {
 	get_env,
 	color = { fg = "#ffc777" },
 }
@@ -70,7 +70,7 @@ local config = function()
 				{ "branch", icon = icons.git.Branch, separator = "" },
 				"buffers",
 			},
-			lualine_c = { diff, diagnostics, venv },
+			lualine_c = { diff, diagnostics, swenv },
 			-- lualine_c = { diff, swenv, diagnostics },
 			lualine_x = { lsp, "encoding", "fileformat", "filetype" },
 			lualine_y = { "location" },
