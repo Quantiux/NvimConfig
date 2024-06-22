@@ -2,7 +2,7 @@ local config = function()
 	-- which-key mapping
 	local wk = require("which-key")
 	wk.register({
-		["<leader>gg"] = { ":LazyGit<CR>", "Open Lazygit" },
+		["<leader>gg"] = { ":LazyGitCurrentFile<CR>", "Open Lazygit" },
 	})
 end
 
