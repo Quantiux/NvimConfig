@@ -6,7 +6,6 @@ opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.expandtab = true -- convert tabs to spaces
 opt.smartindent = true
-opt.wrap = true
 
 -- Search
 opt.incsearch = true
@@ -26,6 +25,8 @@ opt.completeopt = "menuone,noinsert,noselect"
 opt.showmode = false -- disable mode -- INSERT -- etc below statusline
 
 -- Behavior
+opt.wrap = true
+opt.linebreak = true -- break at line instead of splitting words
 opt.hidden = true
 opt.errorbells = false
 opt.swapfile = false
@@ -43,4 +44,4 @@ opt.clipboard:append("unnamedplus") -- copy from clipboard
 opt.modifiable = true
 opt.encoding = "UTF-8"
 opt.updatetime = 100 -- faster writing of swapfile on disk (default 4000)
-opt.whichwrap = "<,>" -- enable cursor to go to beginning of next line from end of line before
+opt.whichwrap = "<,>" -- enable cursor to continue after end of line before
