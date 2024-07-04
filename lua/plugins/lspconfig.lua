@@ -39,10 +39,10 @@ local config = function()
 	end
 
 	-- rounded border for floating window of lsp text document
-	vim.lsp.handlers["textDocument/hover"] =
-		vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 	vim.lsp.handlers["textDocument/signatureHelp"] =
 		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+	vim.lsp.handlers["textDocument/hover"] =
+		vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 
 	-- add lsp to completion source
