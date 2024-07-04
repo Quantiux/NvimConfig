@@ -21,6 +21,10 @@ keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap.set("v", "<", "<gv", opts)
 keymap.set("v", ">", ">gv", opts)
 
--- Comments
+-- comments
 vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-_>", "gcc", { noremap = false })
+
+-- disable ctrl+z backgrounding
+vim.api.nvim_set_keymap("n", "<C-z>", "<nop>", { noremap = false })
+vim.api.nvim_set_keymap("i", "<C-z>", "<nop>", { noremap = false })
