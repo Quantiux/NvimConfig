@@ -1,5 +1,6 @@
 local config = function()
 	local which_key = require("which-key")
+	local close_inactive_buffers = require("util.closeInactiveBuffers")
 	which_key.setup({
 		plugins = {
 			marks = true,
@@ -46,11 +47,11 @@ local config = function()
 		["w"] = { ":w!<CR>", "Save" },
 		["x"] = { ":x!<CR>", "Save & quit" },
 		["q"] = { ":q!<CR>", "Quit without saving" },
-		["c"] = { ":bdelete!<CR>", "Close Buffer" },
-		["h"] = { ":nohlsearch<CR>", "Disable Highlight" },
+		["c"] = { ":bdelete<CR>", "Close buffer" },
+		["h"] = { ":nohlsearch<CR>", "Disable highlight" },
 		["S"] = { ":so $MYVIMRC<CR>", "Source config" },
 		["r"] = { ":RunCode<CR>", "Run code" },
-		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose Python Env" },
+		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
 		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 
 		d = { name = "Debug" }, -- mappings set in dap.lua
@@ -67,6 +68,7 @@ local config = function()
 			n = { ":bnext<CR>", "Go to next buffer" },
 			p = { ":bprev<CR>", "Go to previous buffer" },
 			b = { ":e #<CR>", "Go to other buffer" },
+			c = { close_inactive_buffers, "Close all inactive buffers" },
 		},
 
 		z = {
