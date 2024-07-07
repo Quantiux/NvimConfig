@@ -18,7 +18,6 @@ local config = function()
 		},
 
 		-- customize default name/prefix when pasting images via `:ObsidianPasteImg`
-		---@return string
 		image_name_func = function()
 			return string.format("%s-", os.time()) -- prefix image names with timestamp
 		end,
@@ -26,19 +25,18 @@ local config = function()
 		mappings = {},
 
 		disable_frontmatter = false,
-		---@return table
-		note_frontmatter_func = function(note)
-			if note.title then
-				note:add_alias(note.title) -- add title of the note as an alias
-			end
 
+		note_id_func = function(title)
+			return title
+		end,
+
+		note_frontmatter_func = function(note)
 			local out = { id = note.id, aliases = note.aliases, tags = note.tags }
 			if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
 				for k, v in pairs(note.metadata) do
 					out[k] = v
 				end
 			end
-
 			return out
 		end,
 
@@ -46,6 +44,7 @@ local config = function()
 			folder = "Templates",
 			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
+			tags = "",
 			substitutions = {},
 		},
 
