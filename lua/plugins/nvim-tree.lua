@@ -1,7 +1,31 @@
 local icons = require("util.icons") -- attach icons from util/icons.lua
 
+-- function to replace default key mappings
+local function my_on_attach(bufnr)
+	local api = require("nvim-tree.api")
+
+	local function opts(desc)
+		return {
+			desc = "nvim-tree: " .. desc,
+			buffer = bufnr,
+			noremap = true,
+			silent = true,
+			nowait = true,
+		}
+	end
+
+	-- default mappings
+	api.config.mappings.default_on_attach(bufnr)
+
+	-- mappings to switch "d" and "D" (for trash and delete now) and "?" for help
+	vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
+	vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
+	vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+end
+
 local config = function()
 	require("nvim-tree").setup({
+		on_attach = my_on_attach,
 		actions = {
 			open_file = {
 				quit_on_open = true,
