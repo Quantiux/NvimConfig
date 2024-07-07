@@ -52,6 +52,7 @@ local config = function()
 		["S"] = { ":so $MYVIMRC<CR>", "Source config" },
 		["r"] = { ":RunCode<CR>", "Run code" },
 		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
+		["m"] = { ":messages<CR>", "Show all messages" },
 		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 
 		d = { name = "Debug" }, -- mappings set in dap.lua
@@ -59,7 +60,7 @@ local config = function()
 		s = { name = "Search text" }, -- mappings set in telescope.lua
 		g = { name = "Git" }, -- mappings set in telescope.lua, gitsigns.lua, lazygit.lua
 		l = { name = "LSP/Diagnostics" }, -- mappings set in lspconfig.lua, telescope.lua
-		m = { name = "Markdown" }, -- mappings set in markdown-preview.lua
+		o = { name = "Obsidian" }, -- mappings set in obsidian.lua
 		p = { name = "Persistence" }, -- mappings set in persistence.lua
 		C = { name = "ChatGPT" }, -- mappings set in chatgpt.lua
 
