@@ -6,31 +6,33 @@ local config = function()
 				path = "/home/roy/Documents/Notes",
 			},
 		},
-		preferred_link_style = "markdown", -- "markdown" or "wiki"
 
-		-- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
+		notes_subdir = "Zettelkasten",
+		new_notes_location = "notes_subdir",
+
+		preferred_link_style = "wiki", -- 'wiki' or 'markdown'
+
+		completion = {
+			nvim_cmp = true,
+			min_chars = 2, -- trigger completion after 2 characters
+		},
+
+		-- customize default name/prefix when pasting images via `:ObsidianPasteImg`
 		---@return string
 		image_name_func = function()
-			-- Prefix image names with timestamp.
-			return string.format("%s-", os.time())
+			return string.format("%s-", os.time()) -- prefix image names with timestamp
 		end,
 
-		-- Optional, boolean or a function that takes a filename and returns a boolean.
-		-- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-		disable_frontmatter = false,
+		mappings = {},
 
-		-- Optional, alternatively you can customize the frontmatter data.
+		disable_frontmatter = false,
 		---@return table
 		note_frontmatter_func = function(note)
-			-- Add the title of the note as an alias.
 			if note.title then
-				note:add_alias(note.title)
+				note:add_alias(note.title) -- add title of the note as an alias
 			end
 
 			local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-
-			-- `note.metadata` contains any manually added fields in the frontmatter.
-			-- So here we just make sure those fields are kept in the frontmatter.
 			if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
 				for k, v in pairs(note.metadata) do
 					out[k] = v
@@ -40,14 +42,37 @@ local config = function()
 			return out
 		end,
 
-		-- Optional, for templates (see below).
 		templates = {
-			folder = "templates",
+			folder = "Templates",
 			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
-			-- A map for custom variables, the key should be the variable and the value a function
 			substitutions = {},
 		},
+
+		attachments = {
+			img_folder = "Attachments",
+		},
+
+		ui = {
+			enable = true,
+		},
+	})
+
+	-- which-key mapping
+	local wk = require("which-key")
+	wk.register({
+		["<leader>oo"] = { ":ObsidianOpen<CR>", "Open a note" },
+		["<leader>on"] = { ":ObsidianNew<CR>", "Create a new note" },
+		["<leader>of"] = { ":ObsidianSearch<CR>", "Find a note" },
+		["<leader>oq"] = { ":ObsidianQuickSwitch<CR>", "Quickly switch note" },
+		["<leader>ol"] = { ":ObsidianFollowLink hsplit<CR>", "Follow link under cursor" },
+		["<leader>ob"] = { ":ObsidianBacklinks<CR>", "Get links list to buffer" },
+		["<leader>om"] = { ":ObsidianLink<CR>", "Link selected text to note" },
+		["<leader>op"] = { ":ObsidianLinkNew<CR>", "Create a note with link text" },
+		["<leader>ot"] = { ":ObsidianTemplate<CR>", "Insert template" },
+		["<leader>oT"] = { ":ObsidianTags<CR>", "Get reference list for tag" },
+		["<leader>or"] = { ":ObsidianPasteImg<CR>", "Paste image from vault" },
+		["<leader>ox"] = { ":ObsidianToggleCheckbox<CR>", "Cycle through checkbox options" },
 	})
 end
 
@@ -60,4 +85,3 @@ return {
 	},
 	config = config,
 }
-
