@@ -48,6 +48,12 @@ local diff = {
 	cond = nil,
 }
 
+local buffers = {
+	"buffers",
+	show_filename_only = false, -- show shortened relative path
+	hide_filename_extension = false,
+}
+
 local config = function()
 	require("lualine").setup({
 		options = {
@@ -68,7 +74,7 @@ local config = function()
 			lualine_a = { "mode" },
 			lualine_b = {
 				{ "branch", icon = icons.git.Branch, separator = "" },
-				"buffers",
+				buffers,
 			},
 			lualine_c = { diff, diagnostics, swenv },
 			-- lualine_c = { diff, swenv, diagnostics },
