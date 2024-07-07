@@ -20,7 +20,7 @@ opt.termguicolors = true -- most terms support this
 opt.colorcolumn = "100"
 opt.signcolumn = "yes"
 opt.cmdheight = 0 -- disable commandline (below statusline)
-opt.scrolloff = 10
+opt.scrolloff = 0
 opt.completeopt = "menuone,noinsert,noselect"
 opt.showmode = false -- disable mode -- INSERT -- etc below statusline
 
@@ -38,6 +38,7 @@ opt.backspace = "indent,eol,start"
 opt.splitright = true
 opt.splitbelow = true
 opt.autochdir = false
+opt.conceallevel = 2
 opt.iskeyword:append("-")
 opt.mouse:append("a") -- make mouse available
 opt.clipboard:append("unnamedplus") -- copy from clipboard
