@@ -11,7 +11,7 @@ local config = function()
 			side = "right",
 			width = 30,
 			adaptive_size = true,
-			relativenumber = true,  -- <#>j to move down, <#>k to move up
+			relativenumber = true, -- <#>j to move down, <#>k to move up
 		},
 		diagnostics = {
 			enable = true,
@@ -25,7 +25,6 @@ local config = function()
 		},
 		filters = {
 			enable = true,
-			git_ignored = false,
 			dotfiles = false,
 			exclude = {},
 		},
