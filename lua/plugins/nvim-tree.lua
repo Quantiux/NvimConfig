@@ -50,6 +50,7 @@ local config = function()
 		filters = {
 			enable = true,
 			dotfiles = false,
+			git_ignored = false,
 			exclude = {},
 		},
 		update_focused_file = {
