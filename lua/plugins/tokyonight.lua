@@ -9,8 +9,14 @@ local config = function()
 			comments = { italic = true },
 			keywords = { italic = false },
 		},
+		-- brighten up comments
 		on_colors = function(colors)
-			colors.comment = "#7e86b9" -- brighten up comments
+			colors.comment = "#7e86b9"
+		end,
+		-- darken background color of markdown's inline codes
+		on_highlights = function(highlights, colors)
+			highlights["@markup.raw.markdown_inline"] = { bg = "#273746", fg = colors.blue }
+			-- highlights["@markup.raw.markdown_inline"] = { bg = colors.none, fg = colors.blue }
 		end,
 	})
 	vim.cmd("colorscheme tokyonight")
