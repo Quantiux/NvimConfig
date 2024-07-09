@@ -41,11 +41,16 @@ local config = function()
 			return suffix
 		end,
 
+		-------------------------------------------------------------------------------------------
+		-- plugin currently does not allow adding more fields like note type ("tech", "research",
+		-- "science", "idea", "random", "junk",...) to frontmatter, beyond what is supported (id,
+		-- aliases, tags). One way around is to use type as a tag
+		-------------------------------------------------------------------------------------------
 		note_frontmatter_func = function(note)
-			-- Add the title of the note as an alias.
-			if note.title then
-				note:add_alias(note.title)
-			end
+			-- Add the title of the note as an alias (disabled: manually enter aliases instead).
+			-- if note.title then
+			-- 	note:add_alias(note.title)
+			-- end
 
 			-- `note.metadata` contains any manually added fields in the frontmatter.
 			-- So here we just make sure those fields are kept in the frontmatter.
