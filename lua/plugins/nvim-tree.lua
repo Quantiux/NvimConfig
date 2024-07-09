@@ -24,6 +24,21 @@ local function my_on_attach(bufnr)
 end
 
 local config = function()
+	-- parameters for floating window size and position
+	-- (https://github.com/MarioCarrion/videos/blob/269956e913b76e6bb4ed790e4b5d25255cb1db4f/2023/01/nvim/lua/plugins/nvim-tree.lua)
+	local WIDTH_RATIO = 0.5
+	local HEIGHT_RATIO = 0.8
+	local screen_w = vim.opt.columns:get()
+	local lines = vim.opt.lines:get()
+	local cmdheight = vim.opt.cmdheight:get()
+	local screen_h = lines - cmdheight
+	local window_w = screen_w * WIDTH_RATIO
+	local window_h = screen_h * HEIGHT_RATIO
+	local window_w_int = math.floor(window_w)
+	local window_h_int = math.floor(window_h)
+	local center_x = (screen_w - window_w) / 2
+	local center_y = ((lines - window_h) / 2) - cmdheight
+
 	require("nvim-tree").setup({
 		on_attach = my_on_attach,
 		actions = {
@@ -32,10 +47,28 @@ local config = function()
 			},
 		},
 		view = {
-			side = "right",
-			width = 30,
-			adaptive_size = true,
+			centralize_selection = true,
+			width = function()
+				return math.floor(screen_w * WIDTH_RATIO)
+			end,
 			relativenumber = true, -- <#>j to move down, <#>k to move up
+			float = {
+				enable = true,
+				quit_on_focus_loss = true,
+				open_win_config = function()
+					return {
+						relative = "editor",
+						border = "rounded",
+						width = window_w_int,
+						height = window_h_int,
+						row = center_y,
+						col = center_x,
+					}
+				end,
+			},
+			-- side = "right",
+			-- width = 30,
+			-- adaptive_size = true,
 		},
 		diagnostics = {
 			enable = true,
