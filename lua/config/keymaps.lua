@@ -21,7 +21,7 @@ keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap.set("v", "<", "<gv", opts)
 keymap.set("v", ">", ">gv", opts)
 
--- comments
+-- comments ("_" is same as "/")
 vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-_>", "gcc", { noremap = false })
 
