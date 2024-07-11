@@ -49,11 +49,13 @@ local config = function()
 		["q"] = { ":q!<CR>", "Quit without saving" },
 		["c"] = { ":bdelete<CR>", "Close buffer" },
 		["h"] = { ":nohlsearch<CR>", "Disable highlight" },
-		["S"] = { ":so $MYVIMRC<CR>", "Source config" },
 		["r"] = { ":RunCode<CR>", "Run code" },
 		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
 		["m"] = { ":messages<CR>", "Show all messages" },
 		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
+		-- sourcing doesn't work for modular config, only sources init.lua
+		-- (https://www.reddit.com/r/neovim/comments/svm0gc/comment/hxhf6qb/)
+		-- ["S"] = { ":luafile $MYVIMRC<CR>", "Source config" },
 
 		d = { name = "Debug" }, -- mappings set in dap.lua
 		f = { name = "Find files" }, -- mappings set in telescope.lua
