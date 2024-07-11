@@ -25,6 +25,7 @@ end
 local config = function()
 	local telescope = require("telescope")
 	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
 	telescope.setup({
 		defaults = {
 			prompt_prefix = icons.ui.Telescope .. " ",
@@ -46,10 +47,28 @@ local config = function()
 				"--glob=!.git/",
 			},
 			mappings = {
+				-- insert mode actions
 				i = {
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
 					["<esc>"] = actions.close, -- quit on <ESC>
+					-- open buffer on right split
+					["<C-v>"] = function(prompt_bufnr)
+						local selected_entry = action_state.get_selected_entry()
+						actions.close(prompt_bufnr)
+						vim.cmd("vsplit")
+						vim.cmd("edit " .. selected_entry.value)
+					end,
+				},
+
+				-- open buffer on right split (normal mode)
+				n = {
+					["<C-v>"] = function(prompt_bufnr)
+						local selected_entry = action_state.get_selected_entry()
+						actions.close(prompt_bufnr)
+						vim.cmd("vsplit")
+						vim.cmd("edit " .. selected_entry.value)
+					end,
 				},
 			},
 			preview = {
@@ -85,6 +104,7 @@ local config = function()
 				},
 			},
 		},
+		-- these are extension defaults
 		extensions = {
 			fzf = {
 				fuzzy = true, -- false will only do exact matching
@@ -131,12 +151,13 @@ local config = function()
 		["<leader>lS"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
 	})
 
+	-- load extension
 	telescope.load_extension("fzf")
 end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.6",
+	tag = "0.1.8",
 	lazy = false,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
