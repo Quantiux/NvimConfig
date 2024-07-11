@@ -32,7 +32,37 @@ local config = function()
 	}
 
 	-- Set footer
-	dashboard.section.footer.val = { "https://quantiux.com" }
+	-- (https://github.com/goolord/alpha-nvim/discussions/16#discussioncomment-8866558)
+	vim.api.nvim_create_autocmd("User", {
+	  once = true,
+		pattern = "LazyVimStarted",
+		callback = function()
+			local v = vim.version()
+			local dev
+			if v.prerelease == "dev" then
+				dev = "-dev-" .. v.build
+			else
+				dev = ""
+			end
+			local version = v.major .. "." .. v.minor .. "." .. v.patch .. dev
+			local stats = require("lazy").stats()
+			local plugins_count = stats.loaded .. "/" .. stats.count
+			local ms = math.floor(stats.startuptime + 0.5)
+			local line1 = " " .. plugins_count .. " plugins loaded in " .. ms .. "ms"
+			local line2 = "( " .. version .. ")"
+			local line1_width = vim.fn.strdisplaywidth(line1)
+			local line2Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line2)) / 2)
+				.. line2
+
+			dashboard.section.footer.val = {
+				line1,
+				line2Padded,
+			}
+			pcall(vim.cmd.AlphaRedraw)
+		end,
+	})
+
+	-- dashboard.section.footer.val = { "https://quantiux.com" }
 
 	-- Send config to alpha
 	alpha.setup(dashboard.opts)
