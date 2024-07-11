@@ -25,6 +25,10 @@ keymap.set("v", ">", ">gv", opts)
 vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-_>", "gcc", { noremap = false })
 
+-- move buffer to right and bottom split
+vim.api.nvim_set_keymap("n", "<C-v>", ":vsplit<CR><C-w>L", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-x>", ":split<CR><C-w>J", { noremap = true, silent = true })
+
 -- disable ctrl+z backgrounding
 vim.api.nvim_set_keymap("n", "<C-z>", "<nop>", { noremap = false })
 vim.api.nvim_set_keymap("i", "<C-z>", "<nop>", { noremap = false })
