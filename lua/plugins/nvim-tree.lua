@@ -27,7 +27,7 @@ local config = function()
 	-- parameters for floating window size and position
 	-- (https://github.com/MarioCarrion/videos/blob/269956e913b76e6bb4ed790e4b5d25255cb1db4f/2023/01/nvim/lua/plugins/nvim-tree.lua)
 	local WIDTH_RATIO = 0.5
-	local HEIGHT_RATIO = 0.8
+	local HEIGHT_RATIO = 0.9
 	local screen_w = vim.opt.columns:get()
 	local lines = vim.opt.lines:get()
 	local cmdheight = vim.opt.cmdheight:get()
@@ -48,9 +48,7 @@ local config = function()
 		},
 		view = {
 			centralize_selection = true,
-			width = function()
-				return math.floor(screen_w * WIDTH_RATIO)
-			end,
+			width = window_w_int,
 			relativenumber = true, -- <#>j to move down, <#>k to move up
 			float = {
 				enable = true,
