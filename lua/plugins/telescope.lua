@@ -1,6 +1,10 @@
 local icons = require("util.icons") -- attach icons from util/icons.lua
 
 -- disable binary preview (https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes)
+---------------------------------------------------------------------------------------
+-- install telescope first by commenting (absolute)line#6-25 and line#80,
+-- to avoid "telescope.previewers" not found error in line#6
+---------------------------------------------------------------------------------------
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
 local new_maker = function(filepath, bufnr, opts)
@@ -131,6 +135,7 @@ local config = function()
 		["<leader>fR"] = { ":Telescope registers<CR>", "Registers" },
 		["<leader>fk"] = { ":Telescope keymaps<CR>", "Keymaps" },
 		["<leader>fc"] = { ":Telescope commands<CR>", "Commands" },
+		["<leader>fl"] = { ":Telescope glyph<CR>", "Glyphs" },
 
 		["<leader>sf"] = { ":Telescope live_grep<CR>", "Search text here" },
 		["<leader>sh"] = { ":Telescope live_grep cwd=~<CR>", "Search text in ~" },
@@ -153,15 +158,17 @@ local config = function()
 
 	-- load extension
 	telescope.load_extension("fzf")
+	telescope.load_extension("glyph") -- to get font glyphs (including unicode)
 end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.8",
+	tag = "0.1.6",
 	lazy = false,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{ "ghassan0/telescope-glyph.nvim" },
 	},
 	config = config,
 }
