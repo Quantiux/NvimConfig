@@ -29,16 +29,17 @@ local config = function()
 		-- customize how note IDs are generated given an optional title.
 		note_id_func = function(title)
 			local suffix = ""
+			-- Create a Zettelkasten-styled ID with a timestamp and a suffix
 			if title ~= nil then
-				suffix = title
+				-- for example '1657296016-my-new-note'
+				suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
 			else
 				-- If title is nil, just add 4 random uppercase letters to the suffix.
 				for _ = 1, 4 do
 					suffix = suffix .. string.char(math.random(65, 90))
 				end
-				suffix = tostring(os.time()) .. "-" .. suffix
 			end
-			return suffix
+			return tostring(os.time()) .. "-" .. suffix
 		end,
 
 		-------------------------------------------------------------------------------------------
