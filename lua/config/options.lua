@@ -41,7 +41,7 @@ opt.autochdir = false
 opt.conceallevel = 2
 opt.iskeyword:append("-")
 opt.mouse:append("a") -- make mouse available
-opt.clipboard:append("unnamedplus") -- copy from clipboard
+opt.clipboard = "unnamedplus" -- set system clipboard to "+ (unnamedplus)
 opt.modifiable = true
 opt.encoding = "UTF-8"
 opt.updatetime = 100 -- faster writing of swapfile on disk (default 4000)
