@@ -1,5 +1,8 @@
 -- https://github.com/creativenull/efmls-configs-nvim/tree/main/lua/efmls-configs
 -- load default settings for linters/formatters from efmls-configs plugin
+-----------------------------------------------------------------------------------
+-- install luacheck, stylua, flake8, isort, black, markdownlint, mdformat via Mason
+-----------------------------------------------------------------------------------
 local luacheck = require("efmls-configs.linters.luacheck")
 local stylua = require("efmls-configs.formatters.stylua")
 local flake8 = require("efmls-configs.linters.flake8")
@@ -16,8 +19,7 @@ return {
 			python = { flake8, isort, black },
 			markdown = { markdownlint, mdformat },
 		},
-		-- files to pass additional arguments
-		-- place lua files in ~/.config/nvim/lua/, rest in ~/ (for global scope)
+		-- place these linter/formatter config files in $HOME (for global scope)
 		rootMarkers = {
 			".luacheckrc",
 			".luarc.json",
