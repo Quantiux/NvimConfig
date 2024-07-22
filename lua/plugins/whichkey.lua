@@ -42,6 +42,8 @@ local config = function()
 	})
 
 	local mappings = {
+
+		-- mapping single key
 		["a"] = { ":Alpha<CR>", "Dashboard" },
 		["e"] = { ":NvimTreeToggle<CR>", "Explorer" },
 		["w"] = { ":w!<CR>", "Save" },
@@ -53,19 +55,15 @@ local config = function()
 		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
 		["m"] = { ":messages<CR>", "Show all messages" },
 		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
-		-- sourcing doesn't work for modular config, only sources init.lua
-		-- (https://www.reddit.com/r/neovim/comments/svm0gc/comment/hxhf6qb/)
-		-- ["S"] = { ":luafile $MYVIMRC<CR>", "Source config" },
 
-		d = { name = "Debug" }, -- mappings set in dap.lua
-		f = { name = "Find files" }, -- mappings set in telescope.lua
-		s = { name = "Search text" }, -- mappings set in telescope.lua
+		-- mapping groups
+		f = { name = "Telescope" }, -- mappings set in telescope.lua
 		g = { name = "Git" }, -- mappings set in telescope.lua, gitsigns.lua, lazygit.lua
-		l = { name = "LSP/Diagnostics" }, -- mappings set in lspconfig.lua, telescope.lua
+		d = { name = "LSP/Diagnostics" }, -- mappings set in lspconfig.lua, telescope.lua
 		o = { name = "Obsidian" }, -- mappings set in obsidian.lua
 		p = { name = "Persistence" }, -- mappings set in persistence.lua
 		C = { name = "ChatGPT" }, -- mappings set in chatgpt.lua
-
+		D = { name = "Debug" }, -- mappings set in dap.lua
 		b = {
 			name = "Buffer navigation",
 			n = { ":bnext<CR>", "Go to next buffer" },
@@ -73,7 +71,6 @@ local config = function()
 			b = { ":e #<CR>", "Go to other buffer" },
 			c = { close_inactive_buffers, "Close all inactive buffers" },
 		},
-
 		z = {
 			name = "Split window",
 			v = { ":vsplit<CR>", "Vertical split" },
