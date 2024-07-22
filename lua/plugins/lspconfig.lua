@@ -52,8 +52,8 @@ local config = function()
 	local on_attach = function(_, bufnr)
 		local opts = { noremap = true, silent = true }
 		local keymap = vim.api.nvim_buf_set_keymap
-		keymap(bufnr, "n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
 		keymap(bufnr, "n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
+		keymap(bufnr, "n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
 		keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
 		keymap(bufnr, "n", "gI", ":lua vim.lsp.buf.implementation()<CR>", opts)
 		keymap(bufnr, "n", "gr", ":lua vim.lsp.buf.references()<CR>", opts)
