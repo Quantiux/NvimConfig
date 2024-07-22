@@ -6,8 +6,8 @@ local config = function()
 
 	-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
 	require("luasnip.loaders.from_vscode").lazy_load()
-	
-	vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })  -- set TabNine color
+
+	vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" }) -- set TabNine color
 
 	cmp.setup({
 		completion = {
@@ -46,7 +46,7 @@ local config = function()
 		}),
 		-- configure icons
 		formatting = {
-		  fields = { "kind", "abbr", "menu" },
+			fields = { "kind", "abbr", "menu" },
 			format = function(entry, vim_item)
 				-- Kind icons
 				vim_item.kind = kind_icons[vim_item.kind]
@@ -59,9 +59,9 @@ local config = function()
 					buffer = "[Buffer]",
 					path = "[Path]",
 				})[entry.source.name]
-        if entry.source.name == "cmp_tabnine" then
-          vim_item.kind_hl_group = "CmpItemKindTabnine"
-        end
+				if entry.source.name == "cmp_tabnine" then
+					vim_item.kind_hl_group = "CmpItemKindTabnine"
+				end
 				return vim_item
 			end,
 		},
