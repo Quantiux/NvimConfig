@@ -2,8 +2,8 @@ local icons = require("util.icons") -- attach icons from util/icons.lua
 
 -- disable binary preview (https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes)
 ---------------------------------------------------------------------------------------
--- install telescope first by commenting (absolute)line#6-25 and line#80,
--- to avoid "telescope.previewers" not found error in line#6
+-- install telescope first by commenting (absolute)line#8-27 and line#80,
+-- to avoid "telescope.previewers" not found error in line#8
 ---------------------------------------------------------------------------------------
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
@@ -14,12 +14,24 @@ local new_maker = function(filepath, bufnr, opts)
 		args = { "--mime-type", "-b", filepath },
 		on_exit = function(j)
 			local mime_type = vim.split(j:result()[1], "/")[1]
-			if mime_type == "text" then
+			if mime_type == "text" or filepath:match("%.json$") then
+				-- if mime_type == "text" then
 				previewers.buffer_previewer_maker(filepath, bufnr, opts)
+				-- Preserve file type for syntax highlighting (ChatGPT)
+				vim.schedule(function()
+					local filetype = vim.filetype.match({ filename = filepath, buf = bufnr })
+					vim.api.nvim_set_option_value("filetype", filetype, { buf = bufnr })
+				end)
 			else
 				-- maybe we want to write something to the buffer here
 				vim.schedule(function()
-					vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+					vim.api.nvim_buf_set_lines(
+						bufnr,
+						0,
+						-1,
+						false,
+						{ "*** Preview disabled for binary file ***" }
+					)
 				end)
 			end
 		end,
