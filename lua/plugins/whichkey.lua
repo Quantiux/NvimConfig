@@ -41,9 +41,13 @@ local config = function()
 		show_keys = false,
 	})
 
-	local mappings = {
+	local vmappings = { -- visual mode mappings
+		["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Toggle comment" },
+	}
 
-		-- mapping single key
+	local mappings = { -- normal mode mappings
+
+		-- mapping single keys
 		["a"] = { ":Alpha<CR>", "Dashboard" },
 		["e"] = { ":NvimTreeToggle<CR>", "Explorer" },
 		["w"] = { ":w!<CR>", "Save" },
@@ -55,15 +59,129 @@ local config = function()
 		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
 		["m"] = { ":messages<CR>", "Show all messages" },
 		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
+		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Toggle comment" },
 
 		-- mapping groups
-		f = { name = "Telescope" }, -- mappings set in telescope.lua
-		g = { name = "Git" }, -- mappings set in telescope.lua, gitsigns.lua, lazygit.lua
-		d = { name = "LSP/Diagnostics" }, -- mappings set in lspconfig.lua, telescope.lua
-		o = { name = "Obsidian" }, -- mappings set in obsidian.lua
-		p = { name = "Persistence" }, -- mappings set in persistence.lua
-		C = { name = "ChatGPT" }, -- mappings set in chatgpt.lua
-		D = { name = "Debug" }, -- mappings set in dap.lua
+		f = {
+			name = "Telescope",
+			f = { ":Telescope find_files<CR>", "Find files" },
+			b = { ":Telescope buffers<CR>", "Buffers" },
+			r = { ":Telescope oldfiles<CR>", "Recent File" },
+			g = { ":Telescope live_grep<CR>", "Search text" },
+			i = { ":Telescope glyph<CR>", "Find icons" },
+		},
+		g = {
+			name = "Git",
+			g = { ":LazyGitCurrentFile<CR>", "Open Lazygit" },
+			o = { ":Telescope git_status<CR>", "Open changed file" },
+			b = { ":Telescope git_branches<CR>", "Checkout branch" },
+			c = { ":Telescope git_commits<CR>", "Checkout commit" },
+			j = {
+				":lua require 'gitsigns'.next_hunk({navigation_message = false})<CR>",
+				"Next Hunk",
+			},
+			k = {
+				":lua require 'gitsigns'.prev_hunk({navigation_message = false})<CR>",
+				"Prev Hunk",
+			},
+			p = { ":lua require 'gitsigns'.preview_hunk()<CR>", "Preview Hunk" },
+			r = { ":lua require 'gitsigns'.reset_hunk()<CR>", "Reset Hunk" },
+			l = { ":lua require 'gitsigns'.blame_line()<CR>", "Blame" },
+			R = { ":lua require 'gitsigns'.reset_buffer()<CR>", "Reset Buffer" },
+			s = { ":lua require 'gitsigns'.stage_hunk()<CR>", "Stage Hunk" },
+			u = { ":lua require 'gitsigns'.undo_stage_hunk()<CR>", "Undo Stage Hunk" },
+			d = { ":Gitsigns diffthis HEAD<CR>", "Git Diff" },
+		},
+		d = {
+			name = "LSP/Diagnostics",
+			d = { ":Telescope diagnostics bufnr=0<CR>", "Document Diagnostics" },
+			w = { ":Telescope diagnostics<CR>", "Workspace Diagnostics" },
+			s = { ":Telescope lsp_document_symbols<CR>", "Document Symbols" },
+			S = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
+			i = { ":LspInfo<CR>", "Info" },
+			j = { ":lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
+			k = { ":lua vim.diagnostic.goto_prev()<CR>", "Prev Diagnostic" },
+			a = { ":lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+			l = { ":lua vim.lsp.codelens.run()<CR>", "CodeLens Action" },
+			q = { ":lua vim.diagnostic.setloclist()<CR>", "Quickfix" },
+			r = { ":lua vim.lsp.buf.rename()<CR>", "Rename" },
+			f = { ":lua vim.lsp.buf.format{async=true}<CR>", "Format" },
+		},
+		o = {
+			name = "Obsidian",
+			o = { ":ObsidianOpen<CR>", "Open a note" },
+			n = { ":ObsidianNew<CR>", "Create a new note" },
+			f = { ":ObsidianSearch<CR>", "Find a note" },
+			q = { ":ObsidianQuickSwitch<CR>", "Quickly switch note" },
+			l = { ":ObsidianFollowLink<CR>", "Follow link under cursor" },
+			b = { ":ObsidianBacklinks<CR>", "Get links list to buffer" },
+			m = { ":ObsidianLink<CR>", "Link selected text to note" },
+			p = { ":ObsidianLinkNew<CR>", "Create a note with link text" },
+			t = { ":ObsidianTemplate<CR>", "Insert template" },
+			T = { ":ObsidianTags<CR>", "Get reference list for tag" },
+			r = { ":ObsidianPasteImg<CR>", "Paste image from vault" },
+			x = { ":ObsidianToggleCheckbox<CR>", "Cycle through checkbox options" },
+			-- g = { ":ObsidianBridgeOpenGraph<CR>", "Open Obsidian graph view" },
+			-- v = {
+			--   ":ObsidianBridgeOpenVaultMenu<CR>",
+			--   "Open Obsidian vault selection dialog",
+			-- },
+		},
+		p = {
+			name = "Persistence",
+			c = {
+				":lua require('persistence').load()<CR>",
+				"Restore last session for cwd",
+			},
+			l = {
+				":lua require('persistence').load({ last = true })<CR>",
+				"Restore last session",
+			},
+			q = { ":lua require('persistence').stop()<CR>", "Stop without saving session" },
+		},
+		C = {
+			name = "ChatGPT",
+			c = { ":ChatGPT<CR>", "ChatGPT" },
+			x = { ":ChatGPTRun explain_code<CR>", "Explain code", mode = { "n", "v" } },
+			f = { ":ChatGPTRun fix_bugs<CR>", "Fix bugs", mode = { "n", "v" } },
+			o = { ":ChatGPTRun optimize_code<CR>", "Optimize code", mode = { "n", "v" } },
+			a = { ":ChatGPTRun add_tests<CR>", "Add tests", mode = { "n", "v" } },
+			C = { ":ChatGPTCompleteCode<CR>", "CodeCompletion", mode = { "n", "v" } },
+			e = {
+				":ChatGPTEditWithInstructions<CR>",
+				"Edit with instruction",
+				mode = { "n", "v" },
+			},
+			g = {
+				":ChatGPTRun grammar_correction<CR>",
+				"Grammar Correction",
+				mode = { "n", "v" },
+			},
+			t = { ":ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+			s = { ":ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+			l = {
+				":ChatGPTRun code_readability_analysis<CR>",
+				"Code Readability Analysis",
+				mode = { "n", "v" },
+			},
+		},
+		D = {
+			name = "Debug",
+			t = { ":lua require'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint" },
+			s = { ":lua require'dap'.continue()<CR>", "Start" },
+			c = { ":lua require'dap'.continue()<CR>", "Continue" },
+			b = { ":lua require'dap'.step_back()<CR>", "Step Back" },
+			C = { ":lua require'dap'.run_to_cursor()<CR>", "Run To Cursor" },
+			d = { ":lua require'dap'.disconnect()<CR>", "Disconnect" },
+			g = { ":lua require'dap'.session()<CR>", "Get Session" },
+			i = { ":lua require'dap'.step_into()<CR>", "Step Into" },
+			o = { ":lua require'dap'.step_over()<CR>", "Step Over" },
+			u = { ":lua require'dap'.step_out()<CR>", "Step Out" },
+			p = { ":lua require'dap'.pause()<CR>", "Pause" },
+			r = { ":lua require'dap'.repl.toggle()<CR>", "Toggle Repl" },
+			q = { ":lua require'dap'.close()<CR>", "Quit" },
+			U = { ":lua require'dapui'.toggle({reset = true})<CR>", "Toggle UI" },
+		},
 		b = {
 			name = "Buffer navigation",
 			n = { ":bnext<CR>", "Go to next buffer" },
@@ -77,6 +195,20 @@ local config = function()
 			h = { ":split<CR>", "Horizontal split" },
 			c = { ":q<CR>", "Close split" },
 		},
+		-- P = {
+		-- 	name = "Markdown preview",
+		--	p = { ":MarkdownPreview<CR>", "Open preview" },
+		--	c = { ":MarkdownPreviewStop<CR>", "Close preview" },
+		-- },
+	}
+
+	local vopts = {
+		mode = "v", -- VISUAL mode
+		prefix = "<leader>",
+		buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+		silent = true, -- use `silent` when creating keymaps
+		noremap = true, -- use `noremap` when creating keymaps
+		nowait = true, -- use `nowait` when creating keymaps
 	}
 
 	local opts = {
@@ -89,6 +221,7 @@ local config = function()
 	}
 
 	which_key.register(mappings, opts)
+	which_key.register(vmappings, vopts)
 end
 
 return {

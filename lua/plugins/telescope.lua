@@ -131,42 +131,6 @@ local config = function()
 		},
 	})
 
-	-- which-key mapping
-	local wk = require("which-key")
-	wk.register({
-		["<leader>ff"] = { ":Telescope find_files<CR>", "Find files here" },
-		["<leader>fb"] = { ":Telescope buffers<CR>", "Buffers" },
-		["<leader>fr"] = { ":Telescope oldfiles<CR>", "Recent File" },
-		["<leader>fl"] = { ":Telescope glyph<CR>", "Glyphs" },
-		["<leader>fs"] = { ":Telescope live_grep<CR>", "Search text here" },
-		-- ["<leader>fh"] = { ":Telescope find_files cwd=~<CR>", "Find files in ~" },
-		-- ["<leader>fp"] = { ":Telescope find_files cwd=~/Projects<CR>", "Find files in ~/Projects" },
-		-- ["<leader>fd"] = {
-		-- 	":Telescope find_files cwd=~/Documents<CR>",
-		-- 	"Find files in ~/Documents",
-		-- },
-		-- ["<leader>fR"] = { ":Telescope registers<CR>", "Registers" },
-		-- ["<leader>fk"] = { ":Telescope keymaps<CR>", "Keymaps" },
-		-- ["<leader>fc"] = { ":Telescope commands<CR>", "Commands" },
-
-		-- ["<leader>sh"] = { ":Telescope live_grep cwd=~<CR>", "Search text in ~" },
-		-- ["<leader>sp"] = { ":Telescope live_grep cwd=~/Projects<CR>", "Search text in ~/Projects" },
-		-- ["<leader>sd"] = {
-		-- 	":Telescope live_grep cwd=~/Documents<CR>",
-		-- 	"Search text in ~/Documents",
-		-- },
-		-- ["<leader>ss"] = { ":Telescope grep_string<CR>", "Search string here" },
-
-		["<leader>go"] = { ":Telescope git_status<CR>", "Open changed file" },
-		["<leader>gb"] = { ":Telescope git_branches<CR>", "Checkout branch" },
-		["<leader>gc"] = { ":Telescope git_commits<CR>", "Checkout commit" },
-
-		["<leader>dd"] = { ":Telescope diagnostics bufnr=0<CR>", "Document Diagnostics" },
-		["<leader>dw"] = { ":Telescope diagnostics<CR>", "Workspace Diagnostics" },
-		["<leader>ds"] = { ":Telescope lsp_document_symbols<CR>", "Document Symbols" },
-		["<leader>dS"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
-	})
-
 	-- load extension
 	telescope.load_extension("fzf")
 	telescope.load_extension("glyph") -- to get font glyphs (including unicode)

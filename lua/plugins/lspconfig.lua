@@ -74,19 +74,6 @@ local config = function()
 		end
 		lspconfig[server].setup(opts) -- pass configs to lspconfig
 	end
-
-	-- which-key mapping
-	local wk = require("which-key")
-	wk.register({
-		["<leader>li"] = { ":LspInfo<CR>", "Info" },
-		["<leader>lj"] = { ":lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-		["<leader>lk"] = { ":lua vim.diagnostic.goto_prev()<CR>", "Prev Diagnostic" },
-		["<leader>la"] = { ":lua vim.lsp.buf.code_action()<CR>", "Code Action" },
-		["<leader>ll"] = { ":lua vim.lsp.codelens.run()<CR>", "CodeLens Action" },
-		["<leader>lq"] = { ":lua vim.diagnostic.setloclist()<CR>", "Quickfix" },
-		["<leader>lr"] = { ":lua vim.lsp.buf.rename()<CR>", "Rename" },
-		["<leader>lf"] = { ":lua vim.lsp.buf.format{async=true}<CR>", "Format" },
-	})
 end
 
 return {
