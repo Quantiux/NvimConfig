@@ -21,10 +21,6 @@ keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap.set("v", "<", "<gv", opts)
 keymap.set("v", ">", ">gv", opts)
 
--- comments ("_" is same as "/")
-vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
-vim.api.nvim_set_keymap("v", "<C-_>", "gcc", { noremap = false })
-
 -- move buffer to right and bottom split
 vim.api.nvim_set_keymap("n", "<C-v>", ":vsplit<CR><C-w>L", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-x>", ":split<CR><C-w>J", { noremap = true, silent = true })
