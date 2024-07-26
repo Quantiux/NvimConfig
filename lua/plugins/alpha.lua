@@ -6,7 +6,7 @@ local config = function()
 	dashboard.section.header.val = {
 		"",
 		"",
-		-- "",
+		"",
 		"",
 		" ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗████████╗██╗██╗   ██╗██╗  ██╗",
 		"██╔═══██╗██║   ██║██╔══██╗████╗  ██║╚══██╔══╝██║██║   ██║╚██╗██╔╝",
@@ -34,7 +34,7 @@ local config = function()
 	-- Set footer
 	-- (https://github.com/goolord/alpha-nvim/discussions/16#discussioncomment-8866558)
 	vim.api.nvim_create_autocmd("User", {
-	  once = true,
+		once = true,
 		pattern = "LazyVimStarted",
 		callback = function()
 			local v = vim.version()
