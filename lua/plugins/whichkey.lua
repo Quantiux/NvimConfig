@@ -189,6 +189,14 @@ local config = function()
 			b = { ":e #<CR>", "Go to other buffer" },
 			c = { close_inactive_buffers, "Close all inactive buffers" },
 		},
+		l = {
+			name = "Lazy",
+			c = { ":Lazy check<CR>", "Check for plugin updates" },
+			d = { ":Lazy clean<CR>", "Delete unneeded plugins" },
+			h = { ":Lazy health<CR>", "Checkhealth Lazy" },
+			r = { ":Lazy restore<CR>", "Restore/sync plugins to lock file" },
+			u = { ":Lazy update<CR>", "Update plugins (including lock file)" },
+		},
 		z = {
 			name = "Split window",
 			v = { ":vsplit<CR>", "Vertical split" },
