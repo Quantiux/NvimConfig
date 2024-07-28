@@ -20,6 +20,7 @@ require("config.autocmds")
 local opts = {
 	defaults = {
 		lazy = true, -- set to false inside individual plugin config as needed
+		version = nil, -- use latest commit ("*" to use latest tag if plugin supports semver)
 	},
 	change_detection = {
 		enabled = true, -- automatically check for config file changes and reload the ui
@@ -43,6 +44,12 @@ local opts = {
 	ui = {
 		border = "rounded",
 		size = { width = 0.8, height = 0.8 },
+	},
+	checker = {
+		enabled = false, -- check for updates
+		notify = false,
+		frequency = 21600, -- check for updates every 6 hours
+		check_pinned = false, -- check for pinned (non-upgradable) packages
 	},
 }
 
