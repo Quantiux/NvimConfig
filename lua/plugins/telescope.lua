@@ -6,6 +6,12 @@ local config = function()
 	local action_state = require("telescope.actions.state")
 	telescope.setup({
 		defaults = {
+			layout_config = {
+				width = 0.85,
+				height = 0.9,
+				preview_width = 0.55,
+				prompt_position = "top",
+			},
 			prompt_prefix = icons.ui.Telescope .. " ",
 			selection_caret = icons.ui.Forward .. " ",
 			path_display = { "smart" },
@@ -24,10 +30,8 @@ local config = function()
 				"--column", -- show column number in output
 				"--smart-case", -- smart case for case-sensitive searches
 				"--hidden", -- include hidden files
-				"--glob=!.git/", -- exclude .git directory from searches
-				"--glob=!node_modules/", -- exclude node_modules directories
-				"--glob=!virtualenvs/", -- exclude virtualenvs directories
-				"--glob=!virtualenv/", -- exclude virtualenv directories
+				"--ignore-file",
+				"$HOME/.ignore", -- ignore folders listed in ~/.ignore
 			},
 			mappings = {
 				-- insert mode actions
@@ -63,45 +67,26 @@ local config = function()
 		},
 		pickers = {
 			find_files = {
-				-- theme = "dropdown",
 				find_command = {
 					"rg",
 					"--files", -- list only files, not content within
 					"--hidden", -- include hidden files
-					"--glob=!.git/", -- exclude .git directories
-					"--glob=!node_modules/", -- exclude node_modules directories
-					"--glob=!virtualenvs/", -- exclude virtualenvs directories
-					"--glob=!virtualenv/", -- exclude virtualenv directories
+					"--ignore-file",
+					"$HOME/.ignore", -- ignore folders listed in ~/.ignore
 				},
 				previewer = true,
-				layout_config = {
-					width = 0.87,
-					height = 0.9,
-				},
 			},
 			live_grep = {
-				-- theme = "dropdown",
 				previewer = true,
-				layout_config = {
-					width = 0.87,
-					height = 0.9,
-				},
 			},
 			buffers = {
-				-- theme = "dropdown",
 				previewer = true,
-				layout_config = {
-					width = 0.87,
-					height = 0.9,
-				},
 			},
 		},
 		-- these are extension defaults
 		extensions = {
 			fzf = {
-				fuzzy = true, -- false will only do exact matching
-				override_generic_sorter = true, -- override the generic sorter
-				override_file_sorter = true, -- override the file sorter
+				fuzzy = true, -- false will do exact matching
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
 		},
