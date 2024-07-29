@@ -5,38 +5,38 @@ local icons = require("util.icons") -- attach icons from util/icons.lua
 -- install telescope first by commenting (absolute)line#8-27 and line#80,
 -- to avoid "telescope.previewers" not found error in line#8
 ---------------------------------------------------------------------------------------
--- local previewers = require("telescope.previewers")
--- local Job = require("plenary.job")
--- local new_maker = function(filepath, bufnr, opts)
--- 	filepath = vim.fn.expand(filepath)
--- 	Job:new({
--- 		command = "file",
--- 		args = { "--mime-type", "-b", filepath },
--- 		on_exit = function(j)
--- 			local mime_type = vim.split(j:result()[1], "/")[1]
--- 			-- if mime_type == "text" or "json"
--- 			if mime_type == "text" or filepath:match("%.json$") then
--- 				previewers.buffer_previewer_maker(filepath, bufnr, opts)
--- 				-- Preserve file type for syntax highlighting (ChatGPT)
--- 				vim.schedule(function()
--- 					local filetype = vim.filetype.match({ filename = filepath, buf = bufnr })
--- 					vim.api.nvim_set_option_value("filetype", filetype, { buf = bufnr })
--- 				end)
--- 			else
--- 				-- maybe we want to write something to the buffer here
--- 				vim.schedule(function()
--- 					vim.api.nvim_buf_set_lines(
--- 						bufnr,
--- 						0,
--- 						-1,
--- 						false,
--- 						{ "Binary file: preview disabled" }
--- 					)
--- 				end)
--- 			end
--- 		end,
--- 	}):sync()
--- end
+local previewers = require("telescope.previewers")
+local Job = require("plenary.job")
+local new_maker = function(filepath, bufnr, opts)
+	filepath = vim.fn.expand(filepath)
+	Job:new({
+		command = "file",
+		args = { "--mime-type", "-b", filepath },
+		on_exit = function(j)
+			local mime_type = vim.split(j:result()[1], "/")[1]
+			-- if mime_type == "text" or "json"
+			if mime_type == "text" or filepath:match("%.json$") then
+				previewers.buffer_previewer_maker(filepath, bufnr, opts)
+				-- Preserve file type for syntax highlighting (ChatGPT)
+				vim.schedule(function()
+					local filetype = vim.filetype.match({ filename = filepath, buf = bufnr })
+					vim.api.nvim_set_option_value("filetype", filetype, { buf = bufnr })
+				end)
+			else
+				-- maybe we want to write something to the buffer here
+				vim.schedule(function()
+					vim.api.nvim_buf_set_lines(
+						bufnr,
+						0,
+						-1,
+						false,
+						{ "Binary file: preview disabled" }
+					)
+				end)
+			end
+		end,
+	}):sync()
+end
 
 local config = function()
 	local telescope = require("telescope")
@@ -51,16 +51,21 @@ local config = function()
 			initial_mode = "insert",
 			selection_strategy = "reset",
 			color_devicons = true,
+			set_env = { ["COLORTERM"] = "truecolor" },
+			-- vimgrep_arguments{} are used by live_grep and grep_string pickers
 			vimgrep_arguments = {
-				"rg",
-				"--color=never",
-				"--no-heading",
-				"--with-filename",
-				"--line-number",
-				"--column",
-				"--smart-case",
-				"--hidden",
-				"--glob=!.git/",
+				"rg", -- use ripgrep
+				"--color=never", -- disable color in output for better pasring
+				"--no-heading", -- no file headers in output
+				"--with-filename", -- show filename in output
+				"--line-number", -- show line number in output
+				"--column", -- show column number in output
+				"--smart-case", -- smart case for case-sensitive searches
+				"--hidden", -- include hidden files
+				"--glob=!.git/", -- exclude .git directory from searches
+				"--glob=!node_modules/", -- exclude node_modules directories
+				"--glob=!virtualenvs/", -- exclude virtualenvs directories
+				"--glob=!virtualenv/", -- exclude virtualenv directories
 			},
 			mappings = {
 				-- insert mode actions
@@ -89,15 +94,25 @@ local config = function()
 			},
 			preview = {
 				filesize_limit = 0.1, -- MB
+				highlight_limit = 0.1, -- MB
+				timeout = 200, -- ms
+				treesitter = true, -- treesitter highlighting
 			},
-			-- buffer_previewer_maker = new_maker,
+			buffer_previewer_maker = new_maker,
 		},
 		pickers = {
 			find_files = {
 				-- theme = "dropdown",
+				find_command = {
+					"rg",
+					"--files", -- list only files, not content within
+					"--hidden", -- include hidden files
+					"--glob=!.git/", -- exclude .git directories
+					"--glob=!node_modules/", -- exclude node_modules directories
+					"--glob=!virtualenvs/", -- exclude virtualenvs directories
+					"--glob=!virtualenv/", -- exclude virtualenv directories
+				},
 				previewer = true,
-				hidden = true,
-				find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
 				layout_config = {
 					width = 0.87,
 					height = 0.9,
