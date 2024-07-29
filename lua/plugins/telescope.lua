@@ -30,7 +30,7 @@ local config = function()
 				"--column", -- show column number in output
 				"--smart-case", -- smart case for case-sensitive searches
 				"--hidden", -- include hidden files
-				"--ignore-file",
+				"--ignore-file", -- respect file included below
 				"$HOME/.ignore", -- ignore folders listed in ~/.ignore
 			},
 			mappings = {
@@ -39,6 +39,7 @@ local config = function()
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
 					["<esc>"] = actions.close, -- quit on <ESC>
+
 					-- open buffer on right split
 					["<C-v>"] = function(prompt_bufnr)
 						local selected_entry = action_state.get_selected_entry()
@@ -48,8 +49,8 @@ local config = function()
 					end,
 				},
 
-				-- open buffer on right split (normal mode)
 				n = {
+					-- open buffer on right split (normal mode)
 					["<C-v>"] = function(prompt_bufnr)
 						local selected_entry = action_state.get_selected_entry()
 						actions.close(prompt_bufnr)
@@ -71,7 +72,7 @@ local config = function()
 					"rg",
 					"--files", -- list only files, not content within
 					"--hidden", -- include hidden files
-					"--ignore-file",
+					"--ignore-file", -- respect file included below
 					"$HOME/.ignore", -- ignore folders listed in ~/.ignore
 				},
 				previewer = true,
