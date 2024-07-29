@@ -65,9 +65,15 @@ local config = function()
 		f = {
 			name = "Telescope",
 			f = { ":Telescope find_files<CR>", "Find files" },
+			c = { ":Telescope find_files cwd=~/.config<CR>", "Find files in .config" },
+			d = { ":Telescope find_files cwd=~/Documents<CR>", "Find files in Documents" },
+			p = { ":Telescope find_files cwd=~/Projects<CR>", "Find files in Projects" },
 			b = { ":Telescope buffers<CR>", "Buffers" },
 			r = { ":Telescope oldfiles<CR>", "Recent File" },
 			g = { ":Telescope live_grep<CR>", "Search text" },
+			C = { ":Telescope live_grep cwd=~/.config<CR>", "Search text in .config" },
+			D = { ":Telescope live_grep cwd=~/Documents<CR>", "Search text in Documents" },
+			P = { ":Telescope live_grep cwd=~/Projects<CR>", "Search text in Projects" },
 			i = { ":Telescope glyph<CR>", "Find icons" },
 		},
 		g = {
@@ -121,11 +127,6 @@ local config = function()
 			T = { ":ObsidianTags<CR>", "Get reference list for tag" },
 			r = { ":ObsidianPasteImg<CR>", "Paste image from vault" },
 			x = { ":ObsidianToggleCheckbox<CR>", "Cycle through checkbox options" },
-			-- g = { ":ObsidianBridgeOpenGraph<CR>", "Open Obsidian graph view" },
-			-- v = {
-			--   ":ObsidianBridgeOpenVaultMenu<CR>",
-			--   "Open Obsidian vault selection dialog",
-			-- },
 		},
 		p = {
 			name = "Persistence",
@@ -191,9 +192,10 @@ local config = function()
 		},
 		l = {
 			name = "Lazy",
+			l = { ":Lazy<CR>", ":Lazy" },
 			c = { ":Lazy check<CR>", "Check for plugin updates" },
-			d = { ":Lazy clean<CR>", "Delete unneeded plugins" },
-			h = { ":Lazy health<CR>", "Checkhealth Lazy" },
+			x = { ":Lazy clean<CR>", "Remove unused plugins" },
+			i = { ":Lazy install<CR>", "Install missing plugins" },
 			r = { ":Lazy restore<CR>", "Restore/sync plugins to lock file" },
 			u = { ":Lazy update<CR>", "Update plugins (including lock file)" },
 		},
@@ -203,11 +205,6 @@ local config = function()
 			h = { ":split<CR>", "Horizontal split" },
 			c = { ":q<CR>", "Close split" },
 		},
-		-- P = {
-		-- 	name = "Markdown preview",
-		--	p = { ":MarkdownPreview<CR>", "Open preview" },
-		--	c = { ":MarkdownPreviewStop<CR>", "Close preview" },
-		-- },
 	}
 
 	local vopts = {
