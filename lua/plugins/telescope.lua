@@ -1,4 +1,5 @@
 local icons = require("util.icons") -- attach icons from util/icons.lua
+local binary_disabled_maker = require("util.disableBinaryPreview")
 
 local config = function()
 	local telescope = require("telescope")
@@ -65,6 +66,8 @@ local config = function()
 				timeout = 200, -- ms
 				treesitter = true, -- treesitter highlighting
 			},
+			-- comment line below before installing telescope first time to avoid "telescope.previewers not found" error
+			buffer_previewer_maker = binary_disabled_maker,
 		},
 		pickers = {
 			find_files = {
