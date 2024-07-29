@@ -60,6 +60,7 @@ local config = function()
 		["m"] = { ":messages<CR>", "Show all messages" },
 		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Toggle comment" },
+		["W"] = { ":lua print('pwd = ' .. vim.fn.getcwd())<CR>", "Show pwd" },
 
 		-- mapping groups
 		f = {
