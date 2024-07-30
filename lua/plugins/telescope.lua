@@ -31,8 +31,6 @@ local config = function()
 				"--column", -- show column number in output
 				"--smart-case", -- smart case for case-sensitive searches
 				"--hidden", -- include hidden files
-				"--ignore-file", -- respect file included below
-				"$HOME/.ignore", -- ignore folders listed in ~/.ignore
 			},
 			mappings = {
 				-- insert mode actions
@@ -75,8 +73,6 @@ local config = function()
 					"rg",
 					"--files", -- list only files, not content within
 					"--hidden", -- include hidden files
-					"--ignore-file", -- respect file included below
-					"$HOME/.ignore", -- ignore folders listed in ~/.ignore
 				},
 				previewer = true,
 			},
