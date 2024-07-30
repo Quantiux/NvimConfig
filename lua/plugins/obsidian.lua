@@ -48,10 +48,10 @@ local config = function()
 		-- aliases, tags). One way around is to use type as a tag
 		-------------------------------------------------------------------------------------------
 		note_frontmatter_func = function(note)
-			-- Add the title of the note as an alias (disabled: manually enter aliases instead).
-			-- if note.title then
-			-- 	note:add_alias(note.title)
-			-- end
+			-- Add the title of the note as an alias
+			if note.title then
+				note:add_alias(note.title)
+			end
 
 			-- `note.metadata` contains any manually added fields in the frontmatter.
 			-- So here we just make sure those fields are kept in the frontmatter.
@@ -110,13 +110,14 @@ local config = function()
 		--------------------------
 		-- image attachment stuff
 		--------------------------
-		-- customize default name/prefix when pasting images via `:ObsidianPasteImg`
-		image_name_func = function()
-			return string.format("%s-", os.time()) -- prefix image names with timestamp
-		end,
-
 		attachments = {
 			img_folder = "Extras/Attachments",
+
+			-- customize default name/prefix when pasting images via `:ObsidianPasteImg`
+			image_name_func = function()
+				return string.format("%s-", os.time()) -- prefix image names with timestamp
+			end,
+
 			-- A function that determines the text to insert in the note when pasting an image.
 			-- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
 			-- This is the default implementation.
@@ -132,9 +133,15 @@ local config = function()
 		picker = {
 			name = "telescope.nvim", -- Set your preferred picker.
 			-- configure key mappings for the picker.
-			mappings = {
+			note_mappings = {
 				new = "<C-x>", -- Create a new note from your query.
 				insert_link = "<C-l>", -- Insert a link to the selected note.
+			},
+			tag_mappings = {
+				-- Add tag(s) to current note.
+				tag_note = "<C-x>",
+				-- Insert a tag at the current location.
+				insert_tag = "<C-l>",
 			},
 		},
 
@@ -148,6 +155,7 @@ end
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*", -- recommended, use latest release instead of latest commit
+	lazy = true,
 	ft = "markdown",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
