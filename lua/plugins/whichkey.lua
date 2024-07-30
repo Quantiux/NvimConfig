@@ -57,8 +57,7 @@ local config = function()
 		["h"] = { ":nohlsearch<CR>", "Disable highlight" },
 		["r"] = { ":RunCode<CR>", "Run code" },
 		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
-		["m"] = { ":messages<CR>", "Show all messages" },
-		["M"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
+		["k"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Toggle comment" },
 		["W"] = { ":lua print('pwd = ' .. vim.fn.getcwd())<CR>", "Show pwd" },
 
@@ -199,6 +198,13 @@ local config = function()
 			i = { ":Lazy install<CR>", "Install missing plugins" },
 			r = { ":Lazy restore<CR>", "Restore/sync plugins to lock file" },
 			u = { ":Lazy update<CR>", "Update plugins (including lock file)" },
+		},
+		n = {
+			name = "Noice",
+			d = { ":Noice dismiss<CR>", "Dismiss all visible messages" },
+			t = { ":Noice telescope<CR>", "Show messages in Telescope" },
+			l = { ":Noice last<CR>", "Show last message" },
+			e = { ":Noice errors<CR>", "Show error messages (last on top)" },
 		},
 		z = {
 			name = "Split window",
