@@ -31,6 +31,7 @@ end
 
 return {
 	"nvim-treesitter/nvim-treesitter",
+	build = ":TSUpdate", -- update language parsers during each upgrade
 	lazy = false, -- always load
 	config = config,
 }
