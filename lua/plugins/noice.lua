@@ -25,7 +25,7 @@ local opts = {
 	},
 	-- you can enable a preset for easier configuration
 	presets = {
-		bottom_search = true, -- use a classic bottom cmdline for search
+		bottom_search = false, -- use a classic bottom cmdline for search
 		command_palette = false, -- 'true' positions cmdline at the top
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = false, -- enables an input dialog for inc-rename.nvim
@@ -48,7 +48,7 @@ return {
 				timeout = 3000,
 				render = "compact",
 				top_down = true,
-				fade_in_slide_out = false,
+				stages = "static",
 			},
 		},
 	},
