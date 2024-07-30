@@ -1,4 +1,5 @@
--- Disable binary preview (https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes)
+-- Disable binary file preview in Telescope
+-- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
 
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
@@ -11,7 +12,7 @@ local disable_binary_preview = function(filepath, bufnr, opts)
             local mime_type = vim.split(j:result()[1], "/")[1]
             if mime_type == "text" or filepath:match("%.json$") then
                 previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                -- Preserve file type for syntax highlighting (ChatGPT)
+                -- Preserve file type for syntax highlighting
                 vim.schedule(function()
                     local filetype = vim.filetype.match({ filename = filepath, buf = bufnr })
                     vim.api.nvim_set_option_value("filetype", filetype, { buf = bufnr })
