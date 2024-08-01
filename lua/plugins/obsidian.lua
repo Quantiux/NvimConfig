@@ -49,9 +49,9 @@ local config = function()
 		-------------------------------------------------------------------------------------------
 		note_frontmatter_func = function(note)
 			-- Add the title of the note as an alias
-			if note.title then
-				note:add_alias(note.title)
-			end
+			-- if note.title then
+			-- 	note:add_alias(note.title)
+			-- end
 
 			-- `note.metadata` contains any manually added fields in the frontmatter.
 			-- So here we just make sure those fields are kept in the frontmatter.
@@ -65,11 +65,23 @@ local config = function()
 		end,
 
 		-- customize how note file names are generated given the ID, target directory, and title.
+		-- function to use title as filename (uses letters from id if no title given)
 		note_path_func = function(spec)
-			-- This is equivalent to the default behavior.
-			local path = spec.dir / tostring(spec.id)
+			local filename = ""
+			if spec.title then
+				filename = spec.title:gsub(" ", "-"):lower()
+			else
+				filename = filename .. spec.id:gsub("[^%a]", "")
+			end
+			local path = spec.dir / tostring(filename)
 			return path:with_suffix(".md")
 		end,
+		-- function to use id as filename (prepends timestamp before name)
+		-- note_path_func = function(spec)
+		-- 	-- This is equivalent to the default behavior.
+		-- 	local path = spec.dir / tostring(spec.id)
+		-- 	return path:with_suffix(".md")
+		-- end,
 
 		----------------
 		-- Link stuff
