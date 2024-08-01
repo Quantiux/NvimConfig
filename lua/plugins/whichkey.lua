@@ -41,6 +41,16 @@ local config = function()
 		show_keys = false,
 	})
 
+	-- Function to open link under cursor
+	local function open_link()
+		local url = vim.fn.expand("<cfile>")
+		if url ~= "" then
+			os.execute(string.format("xdg-open %q", url))
+		else
+			print("No URL found under cursor")
+		end
+	end
+
 	local vmappings = { -- visual mode mappings
 		["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Toggle comment" },
 	}
@@ -60,6 +70,7 @@ local config = function()
 		["k"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Toggle comment" },
 		["W"] = { ":lua print('pwd = ' .. vim.fn.getcwd())<CR>", "Show pwd" },
+		["L"] = { open_link, "Open link under cursor" },
 
 		-- mapping groups
 		f = {
