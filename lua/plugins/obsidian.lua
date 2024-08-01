@@ -42,11 +42,6 @@ local config = function()
 			return tostring(os.time()) .. "-" .. suffix
 		end,
 
-		-------------------------------------------------------------------------------------------
-		-- plugin currently does not allow adding more fields like note type ("tech", "research",
-		-- "science", "idea", "random", "junk",...) to frontmatter, beyond what is supported (id,
-		-- aliases, tags). One way around is to use type as a tag
-		-------------------------------------------------------------------------------------------
 		note_frontmatter_func = function(note)
 			-- Add the title of the note as an alias
 			-- if note.title then
@@ -65,21 +60,21 @@ local config = function()
 		end,
 
 		-- customize how note file names are generated given the ID, target directory, and title.
-		-- function to use title as filename (uses letters from id if no title given)
+		-- function to use id as filename (prepends timestamp before name)
 		note_path_func = function(spec)
-			local filename = ""
-			if spec.title then
-				filename = spec.title:gsub(" ", "-"):lower()
-			else
-				filename = filename .. spec.id:gsub("[^%a]", "")
-			end
-			local path = spec.dir / tostring(filename)
+			-- This is equivalent to the default behavior.
+			local path = spec.dir / tostring(spec.id)
 			return path:with_suffix(".md")
 		end,
-		-- function to use id as filename (prepends timestamp before name)
+		-- function to use title as filename (does not prepend timestanp before name)
 		-- note_path_func = function(spec)
-		-- 	-- This is equivalent to the default behavior.
-		-- 	local path = spec.dir / tostring(spec.id)
+		-- 	local filename = ""
+		-- 	if spec.title then
+		-- 		filename = spec.title:gsub(" ", "-"):lower()
+		-- 	else  -- if no title given, use letters from id
+		-- 		filename = filename .. spec.id:gsub("[^%a]", "")
+		-- 	end
+		-- 	local path = spec.dir / tostring(filename)
 		-- 	return path:with_suffix(".md")
 		-- end,
 
