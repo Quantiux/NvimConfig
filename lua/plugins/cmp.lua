@@ -2,12 +2,11 @@ local config = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
 
-	-- local kind_icons = require("util.icons").kind -- attach icons from util/icons.lua
-
 	-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
 	require("luasnip.loaders.from_vscode").lazy_load()
 
-	-- vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" }) -- set TabNine color
+	-- load R-completion plugin
+	require("cmp_r").setup({})
 
 	-- Set up regular completion (including path completion)
 	cmp.setup({
@@ -45,13 +44,10 @@ local config = function()
 			{ name = "path", option = { label_trailing_slash = true } }, -- file system paths
 			{ name = "cmp_r" }, -- R
 		}),
-		-- configure icons
+		-- configure menu display
 		formatting = {
-			-- fields = { "kind", "abbr", "menu" },
 			fields = { "abbr", "menu" },
 			format = function(entry, vim_item)
-				-- Kind icons
-				-- vim_item.kind = kind_icons[vim_item.kind]
 				-- Source
 				vim_item.menu = ({
 					nvim_lsp = "[LSP]",
@@ -60,10 +56,9 @@ local config = function()
 					buffer = "[Buffer]",
 					path = "[Path]",
 					cmp_r = "[R]",
-				})[entry.source.name]
-				-- if entry.source.name == "cmp_tabnine" then
-				-- 	vim_item.kind_hl_group = "CmpItemKindTabnine" -- use TabNine icon
-				-- end
+				})[entry.source.name] or ""
+				-- Kind icons
+				vim_item.kind = ""
 				return vim_item
 			end,
 		},
