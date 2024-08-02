@@ -15,12 +15,11 @@ local opts = {
 			["vim.lsp.util.stylize_markdown"] = true,
 			["cmp.entry.get_documentation"] = true,
 		},
-		-- either set hover, signature=false or comment out lines 'vim.lsp.handlers["textDocument/signatureHelp"] =' and 'vim.lsp.handlers["textDocument/hover"] =' in lspconfig.lua to avoid conflict
 		hover = {
-			enabled = false,
+			enabled = true,
 		},
 		signature = {
-			enabled = false,
+			enabled = true,
 		},
 	},
 	-- you can enable a preset for easier configuration
