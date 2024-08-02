@@ -65,7 +65,6 @@ local config = function()
 				timeout = 200, -- ms
 				treesitter = true, -- treesitter highlighting
 			},
-			-- comment line below before installing telescope first time to avoid "telescope.previewers not found" error
 			buffer_previewer_maker = binary_disabled_maker,
 		},
 		pickers = {
