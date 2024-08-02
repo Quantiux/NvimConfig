@@ -9,6 +9,7 @@ local config = function()
 
 	vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" }) -- set TabNine color
 
+	-- Set up regular completion (including path completion)
 	cmp.setup({
 		completion = {
 			completeopt = "menu,menuone,preview,noselect",
@@ -40,9 +41,9 @@ local config = function()
 			{ name = "nvim_lsp" }, -- lsp
 			{ name = "luasnip" }, -- snippets
 			{ name = "cmp_tabnine" }, -- cmp-tabnine
-			{ name = "cmp_nvim_r" }, -- cmp-nvim-r
 			{ name = "buffer" }, -- text within current buffer
-			{ name = "path", option = { trailing_slash = true } }, -- file system paths
+			{ name = "path", option = { label_trailing_slash = false } }, -- file system paths
+			-- { name = "cmp_nvim_r" }, -- cmp-nvim-r
 		}),
 		-- configure icons
 		formatting = {
@@ -55,16 +56,39 @@ local config = function()
 					nvim_lsp = "[LSP]",
 					luasnip = "[Snippet]",
 					cmp_tabnine = "[TabNine]",
-					cmp_nvim_r = "[Nvim_R]",
 					buffer = "[Buffer]",
 					path = "[Path]",
+					-- cmp_nvim_r = "[Nvim_R]",
 				})[entry.source.name]
 				if entry.source.name == "cmp_tabnine" then
-					vim_item.kind_hl_group = "CmpItemKindTabnine"
+					vim_item.kind_hl_group = "CmpItemKindTabnine" -- use TabNine icon
 				end
 				return vim_item
 			end,
 		},
+	})
+
+	-- Set up cmdline completion
+	-- Use buffer source for "/" and "?"
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
+	-- Use cmdline & path source for ":"
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = { "Man", "!" },
+					treat_trailing_slash = true,
+				},
+			},
+		}),
 	})
 end
 
@@ -75,6 +99,7 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-buffer", -- source for text in buffer
 		"hrsh7th/cmp-path", -- source for file system paths
+		"hrsh7th/cmp-cmdline", -- source for commandline suggestions
 		{
 			"L3MON4D3/LuaSnip",
 			version = "v2.*", -- follow latest release
