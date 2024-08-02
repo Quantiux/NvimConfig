@@ -1,7 +1,12 @@
 -- Disable binary file preview in Telescope
 -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
 
-local previewers = require("telescope.previewers")
+-- pcall catches "Failed to load telescope.previewers" error on install
+local previewers_status, previewers = pcall(require, "telescope.previewers")
+if not previewers_status then
+    print("Telescope previewers not found")
+    return
+end
 local Job = require("plenary.job")
 local disable_binary_preview = function(filepath, bufnr, opts)
     filepath = vim.fn.expand(filepath)
