@@ -11,20 +11,21 @@ local config = function()
 		--   enable = true,
 		-- },
 		ensure_installed = {
-			"yaml",
 			"bash",
-			"lua",
 			"dockerfile",
-			"python",
-			"r",
-			"vim",
+			"lua",
 			"markdown", -- for basic highlighting
 			"markdown_inline", -- for full highlighting
+			"python",
+			"r",
+			"regex",
+			"vim",
+			"yaml",
 		},
 		auto_install = true,
 		highlight = {
 			enable = true,
-			additional_vim_regex_highlighting = true,
+			additional_vim_regex_highlighting = false,
 		},
 	})
 end
