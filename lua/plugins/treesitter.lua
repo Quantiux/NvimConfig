@@ -19,9 +19,11 @@ local config = function()
 			"python",
 			"r",
 			"regex",
+			"rnoweb",
 			"vim",
 			"yaml",
 		},
+		sync_install = true,
 		auto_install = true,
 		highlight = {
 			enable = true,
@@ -32,7 +34,7 @@ end
 
 return {
 	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate", -- update language parsers during each upgrade
+	build = ":TSUpdate", -- update language parsers during each plugin update
 	lazy = false, -- always load
 	config = config,
 }
