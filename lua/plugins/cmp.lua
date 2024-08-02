@@ -2,12 +2,12 @@ local config = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
 
-	local kind_icons = require("util.icons").kind -- attach icons from util/icons.lua
+	-- local kind_icons = require("util.icons").kind -- attach icons from util/icons.lua
 
 	-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
 	require("luasnip.loaders.from_vscode").lazy_load()
 
-	vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" }) -- set TabNine color
+	-- vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" }) -- set TabNine color
 
 	-- Set up regular completion (including path completion)
 	cmp.setup({
@@ -43,14 +43,15 @@ local config = function()
 			{ name = "cmp_tabnine" }, -- cmp-tabnine
 			{ name = "buffer" }, -- text within current buffer
 			{ name = "path", option = { label_trailing_slash = true } }, -- file system paths
-			-- { name = "cmp_nvim_r" }, -- cmp-nvim-r
+			{ name = "cmp_r" }, -- R
 		}),
 		-- configure icons
 		formatting = {
-			fields = { "kind", "abbr", "menu" },
+			-- fields = { "kind", "abbr", "menu" },
+			fields = { "abbr", "menu" },
 			format = function(entry, vim_item)
 				-- Kind icons
-				vim_item.kind = kind_icons[vim_item.kind]
+				-- vim_item.kind = kind_icons[vim_item.kind]
 				-- Source
 				vim_item.menu = ({
 					nvim_lsp = "[LSP]",
@@ -58,11 +59,11 @@ local config = function()
 					cmp_tabnine = "[TabNine]",
 					buffer = "[Buffer]",
 					path = "[Path]",
-					-- cmp_nvim_r = "[Nvim_R]",
+					cmp_r = "[R]",
 				})[entry.source.name]
-				if entry.source.name == "cmp_tabnine" then
-					vim_item.kind_hl_group = "CmpItemKindTabnine" -- use TabNine icon
-				end
+				-- if entry.source.name == "cmp_tabnine" then
+				-- 	vim_item.kind_hl_group = "CmpItemKindTabnine" -- use TabNine icon
+				-- end
 				return vim_item
 			end,
 		},
@@ -108,5 +109,6 @@ return {
 		},
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		"rafamadriz/friendly-snippets", -- useful snippets
+		"R-nvim/cmp-r", -- R autocompletion
 	},
 }
