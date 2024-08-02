@@ -38,26 +38,24 @@ local config = function()
 		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 	end
 
-	-- rounded border for floating window of lsp text document
-	vim.lsp.handlers["textDocument/signatureHelp"] =
-		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-	vim.lsp.handlers["textDocument/hover"] =
-		vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+	-- rounded border for floating window of lsp text document (global)
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 
 	-- add lsp to completion source
 	local capabilities = cmp_nvim_lsp.default_capabilities()
 
-	-- keybinding for lsp defs/refs/.. (attatched to active lsp server)
+	-- keybinding for lsp defs/refs/.. (attached to active lsp server)
 	local on_attach = function(_, bufnr)
 		local opts = { noremap = true, silent = true }
 		local keymap = vim.api.nvim_buf_set_keymap
 		keymap(bufnr, "n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
 		keymap(bufnr, "n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
-		keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
-		keymap(bufnr, "n", "gI", ":lua vim.lsp.buf.implementation()<CR>", opts)
 		keymap(bufnr, "n", "gr", ":lua vim.lsp.buf.references()<CR>", opts)
 		keymap(bufnr, "n", "gl", ":lua vim.diagnostic.open_float()<CR>", opts)
+		keymap(bufnr, "n", "gI", ":lua vim.lsp.buf.implementation()<CR>", opts)
+		-- Use noice for hover and signature help
+		keymap(bufnr, "n", "K", ":lua require('noice.lsp').hover()<CR>", opts)
+		keymap(bufnr, "n", "gi", ":lua require('noice.lsp').signature_help()<CR>", opts)
 	end
 
 	-- loop through language servers to set up config
