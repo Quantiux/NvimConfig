@@ -42,7 +42,7 @@ local config = function()
 			{ name = "luasnip" }, -- snippets
 			{ name = "cmp_tabnine" }, -- cmp-tabnine
 			{ name = "buffer" }, -- text within current buffer
-			{ name = "path", option = { label_trailing_slash = false } }, -- file system paths
+			{ name = "path", option = { label_trailing_slash = true } }, -- file system paths
 			-- { name = "cmp_nvim_r" }, -- cmp-nvim-r
 		}),
 		-- configure icons
