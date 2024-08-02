@@ -15,10 +15,11 @@ local config = function()
 			},
 			prompt_prefix = icons.ui.Telescope .. " ",
 			selection_caret = icons.ui.Forward .. " ",
-			path_display = { "smart" },
+			path_display = { "truncate" }, -- show as much path as fits
 			entry_prefix = "   ",
 			initial_mode = "insert",
 			selection_strategy = "reset",
+			sorting_strategy = "ascending", -- top-down
 			color_devicons = true,
 			set_env = { ["COLORTERM"] = "truecolor" },
 			-- vimgrep_arguments{} are used by live_grep and grep_string pickers
