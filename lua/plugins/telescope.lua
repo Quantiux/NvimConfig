@@ -95,7 +95,6 @@ local config = function()
 
 	-- load extension
 	telescope.load_extension("fzf")
-	telescope.load_extension("glyph") -- to get font glyphs (including unicode)
 end
 
 return {
@@ -105,7 +104,6 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-		{ "ghassan0/telescope-glyph.nvim" },
 	},
 	config = config,
 }
