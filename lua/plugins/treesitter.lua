@@ -21,6 +21,7 @@ local config = function()
 			"regex",
 			"rnoweb",
 			"vim",
+			"vimdoc",
 			"yaml",
 		},
 		sync_install = true,
