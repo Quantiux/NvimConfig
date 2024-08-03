@@ -1,18 +1,16 @@
 local config = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
+	local lspkind = require("lspkind")
 
-	-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-	require("luasnip.loaders.from_vscode").lazy_load()
+	require("luasnip.loaders.from_vscode").lazy_load() -- loads vscode style snippets
 
-	-- load R-completion plugin
-	require("cmp_r").setup({})
+	require("cmp_r").setup({}) -- load R-completion plugin
+
+	vim.opt.completeopt = "menu,menuone,noselect"
 
 	-- Set up regular completion (including path completion)
 	cmp.setup({
-		completion = {
-			completeopt = "menu,menuone,preview,noselect",
-		},
 		snippet = { -- configure how nvim-cmp interacts with snippet engine
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
@@ -44,23 +42,14 @@ local config = function()
 			{ name = "path", option = { label_trailing_slash = true } }, -- file system paths
 			{ name = "cmp_r" }, -- R
 		}),
-		-- configure menu display
+		-- configure lspkind for vs-code like icons
 		formatting = {
-			fields = { "abbr", "menu" },
-			format = function(entry, vim_item)
-				-- Source
-				vim_item.menu = ({
-					nvim_lsp = "[LSP]",
-					luasnip = "[Snippet]",
-					cmp_tabnine = "[TabNine]",
-					buffer = "[Buffer]",
-					path = "[Path]",
-					cmp_r = "[R]",
-				})[entry.source.name] or ""
-				-- Kind icons
-				vim_item.kind = ""
-				return vim_item
-			end,
+			format = lspkind.cmp_format({
+				mode = "symbol",
+				maxwidth = 50,
+				ellipsis_char = "...",
+				show_labelDetails = true,
+			}),
 		},
 	})
 
@@ -93,12 +82,13 @@ return {
 	config = config,
 	event = "InsertEnter",
 	dependencies = {
+		"onsails/lspkind.nvim",
 		"hrsh7th/cmp-buffer", -- source for text in buffer
 		"hrsh7th/cmp-path", -- source for file system paths
 		"hrsh7th/cmp-cmdline", -- source for commandline suggestions
 		{
 			"L3MON4D3/LuaSnip",
-			version = "v2.*", -- follow latest release
+			tag = "v2.*", -- Replace <CurrentMajor> by the latest released major
 			-- install jsregexp (optional!).
 			build = "make install_jsregexp",
 		},
