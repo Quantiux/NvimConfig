@@ -7,7 +7,7 @@ local flake8 = require("efmls-configs.linters.flake8")
 local isort = require("efmls-configs.formatters.isort")
 local black = require("efmls-configs.formatters.black")
 local markdownlint = require("efmls-configs.linters.markdownlint")
-local mdformat = require("efmls-configs.formatters.mdformat")
+-- local mdformat = require("efmls-configs.formatters.mdformat")
 
 return {
 	filetypes = { "lua", "python", "markdown" },
@@ -15,7 +15,8 @@ return {
 		languages = {
 			lua = { luacheck, stylua },
 			python = { flake8, isort, black },
-			markdown = { markdownlint, mdformat },
+			markdown = { markdownlint },
+			-- markdown = { markdownlint, mdformat }, -- disable markdown formatting
 		},
 		-- place these files in $HOME for global scope
 		rootMarkers = {
@@ -23,7 +24,7 @@ return {
 			".luarc.json",
 			".flake8",
 			".markdownlint.yaml",
-			".mdformat.toml",
+			-- ".mdformat.toml",
 			".stylua.toml",
 			"pyproject.toml",
 		},
