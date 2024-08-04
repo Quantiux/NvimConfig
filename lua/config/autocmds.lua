@@ -1,5 +1,5 @@
 -- auto-format on save
--- (https://github.com/creativenull/efmls-configs-nvim/blob/main/README.md#format-on-save)
+-- (https://github.com/creativenull/efmls-configs-nvim?tab=readme-ov-file#format-on-save)
 local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = lsp_fmt_group,
