@@ -16,7 +16,7 @@ return {
 			lua = { luacheck, stylua },
 			python = { flake8, isort, black },
 			markdown = { markdownlint },
-			-- markdown = { markdownlint, mdformat }, -- disable markdown formatting
+			-- markdown = { markdownlint, mdformat }, -- disable mdformat
 		},
 		-- place these files in $HOME for global scope
 		rootMarkers = {
