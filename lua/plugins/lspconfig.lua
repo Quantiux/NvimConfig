@@ -48,7 +48,7 @@ local config_startup = function()
 			"black",
 			"isort",
 			"markdownlint",
-			-- "mdformat",
+			-- "mdformat",  -- disable mdformat
 		},
 		auto_update = false,
 		run_on_start = true,
