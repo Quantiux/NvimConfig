@@ -48,7 +48,7 @@ local config_startup = function()
 			"black",
 			"isort",
 			"markdownlint",
-			"mdformat",
+			-- "mdformat",
 		},
 		auto_update = false,
 		run_on_start = true,
@@ -221,6 +221,7 @@ return {
 	-- LSP support plugins loaded at startup
 	{
 		"creativenull/efmls-configs-nvim",
+		version = "v1.x.x",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
