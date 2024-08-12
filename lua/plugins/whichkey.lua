@@ -57,7 +57,7 @@ local config = function()
 
 	local mappings = { -- normal mode mappings
 
-		-- mapping single keys
+		-- individual mappings
 		["a"] = { ":Alpha<CR>", "Dashboard" },
 		["e"] = { ":NvimTreeToggle<CR>", "Explorer" },
 		["w"] = { ":w!<CR>", "Save" },
@@ -69,10 +69,10 @@ local config = function()
 		["v"] = { ":lua require('swenv.api').pick_venv()<CR>", "Choose python env" },
 		["k"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Toggle comment" },
-		["W"] = { ":lua print('pwd = ' .. vim.fn.getcwd())<CR>", "Show pwd" },
+		-- ["W"] = { ":lua print('pwd = ' .. vim.fn.getcwd())<CR>", "Show pwd" },
 		["L"] = { open_link, "Open link under cursor" },
 
-		-- mapping groups
+		-- group mapping
 		f = {
 			name = "Telescope",
 			f = { ":Telescope find_files<CR>", "Find files" },
@@ -222,6 +222,11 @@ local config = function()
 			v = { ":vsplit<CR>", "Vertical split" },
 			h = { ":split<CR>", "Horizontal split" },
 			c = { ":q<CR>", "Close split" },
+		},
+		W = {
+			name = "Spell check",
+			a = { "zg", "Add to dictionary" },
+			r = { "zug", "Remove from dictionary" },
 		},
 	}
 
