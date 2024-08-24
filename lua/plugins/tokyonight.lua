@@ -16,7 +16,6 @@ local config = function()
 		-- darken background color of markdown's inline codes
 		on_highlights = function(highlights, colors)
 			highlights["@markup.raw.markdown_inline"] = { bg = "#273746", fg = colors.blue }
-			-- highlights["@markup.raw.markdown_inline"] = { bg = colors.none, fg = colors.blue }
 		end,
 	})
 	vim.cmd("colorscheme tokyonight")
