@@ -1,6 +1,6 @@
 -- https://github.com/creativenull/efmls-configs-nvim/tree/main/lua/efmls-configs
 -- loads default settings for linters/formatters from efmls-configs plugin
--- (luacheck, stylua, flake8, isort, black, markdownlint, mdformat are auto-installed via Mason)
+-- (luacheck, stylua, flake8, isort, black, markdownlint are auto-installed via Mason)
 local luacheck = require("efmls-configs.linters.luacheck")
 local stylua = require("efmls-configs.formatters.stylua")
 local flake8 = require("efmls-configs.linters.flake8")
