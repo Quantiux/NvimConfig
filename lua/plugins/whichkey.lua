@@ -70,6 +70,7 @@ local config = function()
 		["k"] = { ":lua vim.api.nvim_command('map')<CR>", "Show all keymaps" },
 		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Toggle comment" },
 		-- ["W"] = { ":lua print('pwd = ' .. vim.fn.getcwd())<CR>", "Show pwd" },
+		["Q"] = { ":QuartoPreview<CR>", "Open Quarto" },
 		["L"] = { open_link, "Open link under cursor" },
 
 		-- group mapping
