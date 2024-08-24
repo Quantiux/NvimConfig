@@ -23,6 +23,8 @@ local config = function()
 			"vim",
 			"vimdoc",
 			"yaml",
+			-- "html", -- to render image from html file (see image.lua)
+			-- "css", -- to render image from css file (see image.lua)
 		},
 		sync_install = true,
 		auto_install = true,
