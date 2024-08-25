@@ -51,8 +51,20 @@ local config = function()
 		end
 	end
 
+	-- Keybinding to initialize Molten for python3
+	local function init_molten()
+		local venv = os.getenv("VIRTUAL_ENV")
+		if venv ~= nil then
+			venv = string.match(venv, "/.+/(.+)")
+			vim.cmd(("MoltenInit %s"):format(venv))
+		else
+			vim.cmd("MoltenInit python3")
+		end
+	end
+
 	local vmappings = { -- visual mode mappings
 		["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Toggle comment" },
+		["mv"] = { ":<C-u>MoltenEvaluateVisual<CR>gv", "Evaluate visual selection" },
 	}
 
 	local mappings = { -- normal mode mappings
@@ -194,6 +206,17 @@ local config = function()
 			r = { ":lua require'dap'.repl.toggle()<CR>", "Toggle Repl" },
 			q = { ":lua require'dap'.close()<CR>", "Quit" },
 			U = { ":lua require'dapui'.toggle({reset = true})<CR>", "Toggle UI" },
+		},
+		m = {
+			name = "Molten",
+			i = { init_molten, "Initialize Kernel" },
+			o = { ":MoltenEvaluateOperator<CR>", "Evaluate selection by operator" },
+			r = { ":MoltenReevaluateCell<CR>", "Re-evaluate active cell" },
+			e = { ":noautocmd MoltenEnterOutput<CR>", "Move to cell's output window" },
+			h = { ":MoltenHideOutput<CR>", "Hide currently open output window" },
+			d = { ":MoltenDelete<CR>", "Delete active cell" },
+			s = { ":MoltenRestart<CR>", "Shut down and restart kernel" },
+			t = { ":MoltenInterrupt<CR>", "Interrupt code execution" },
 		},
 		b = {
 			name = "Buffer navigation",
