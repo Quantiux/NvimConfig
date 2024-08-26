@@ -1,3 +1,4 @@
+-- https://github.com/jmbuhr/quarto-nvim-kickstarter/blob/main/lua/plugins/quarto.lua
 local config = function()
 	vim.g.slime_input_pid = false
 	vim.g.slime_suggest_default = true
@@ -41,7 +42,7 @@ return {
       ]])
 
 		vim.g.slime_target = "neovim"
-		vim.g.slime_no_mappings = true
+		vim.g.slime_no_mappings = 1
 		vim.g.slime_python_ipython = 1
 	end,
 	config = config,
