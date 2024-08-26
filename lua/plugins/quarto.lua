@@ -7,7 +7,6 @@ local config = function()
 			enabled = true,
 			chunks = "curly",
 			languages = { "r", "python" },
-			-- languages = { "r", "python", "julia", "bash", "html" },
 			diagnostics = {
 				enabled = true,
 				triggers = { "BufWritePost" },
@@ -28,7 +27,7 @@ end
 
 return {
 	"quarto-dev/quarto-nvim",
-  ft = { "quarto" },
+	ft = { "quarto" },
 	dependencies = {
 		"jmbuhr/otter.nvim",
 	},
